@@ -1,0 +1,31 @@
+#-------------------- This function creates inverse cache "matrix" object.
+makeCacheMatrix <- function(x = matrix()) {
+  
+               inversa <- NULL
+               set <- function(y){
+               x <<- y
+               inversa <<- NULL
+                  }
+  
+  obt <- function() x
+  setInversa <- function(MatrizResuelta) inversa <<- MatrizResuelta
+  obtInversa <- function() inversa
+  list(set = set, obt = obt, setInversa = setInversa, obtInversa = obtInversa)
+}
+
+#-------------------- This function computes inverse "matrix" returned by 'makeCacheMatrix' function
+cacheSolve <- function(x, ...) {
+  
+  inversa <- x$obtInversa()
+  if(!is.null(inversa)){
+    
+              message("obtting cached data")
+              return(inversa)
+  }
+  
+  data <- x$obt()
+  inversa <- solve(data)
+  x$setInversa(inversa)
+  inversa     
+  
+}
